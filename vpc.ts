@@ -92,7 +92,12 @@ const publicSubnet2Association = new aws.ec2.RouteTableAssociation("publicSubnet
 });
 
 // NAT Gateway - on AZ 1
-const eip = new aws.ec2.Eip("eip", { vpc: true });
+//const eip = new aws.ec2.Eip("eip", { vpc: true });
+
+const eip = new aws.ec2.Eip("eip", {
+    //instance: /* ... */,
+    domain: "vpc", // or "standard" depending on your use case
+  });
 
 const natGateway = new aws.ec2.NatGateway(config.natGateway.Name, {
     subnetId: subnet1.id, // Choose one of the public subnets

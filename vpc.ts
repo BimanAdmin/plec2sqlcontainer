@@ -1,6 +1,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
-import * as config from "./config";
+import * as config from "./Config";
 
 // Specify the AWS region
 const region = config.awsregion;

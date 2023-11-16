@@ -1,4 +1,4 @@
-import * as varconfig from "./config";
+import * as varconfig from "./Config";
 import * as vpcpubsg from "./vpc";
 import * as aws from '@pulumi/aws';
 

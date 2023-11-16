@@ -1,3 +1,4 @@
+///////////
 //AWS Region
 export const awsregion = "us-west-2";
 

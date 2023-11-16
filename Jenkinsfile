@@ -7,7 +7,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         PULUMI_ACCESS_TOKEN = credentials('pulumi-access-token')
         PULUMI_STACK = 'plec2sqlcontainer'
-        GITHUB_REPO_URL = 'https://git.unifocus.com/nkumar/plec2sqlcontainer.git'
+        GITHUB_REPO_URL = 'https://github.com/BimanAdmin/plec2sqlcontainer.git'
         //CLUSTER_NAME = 'my-vpc-01-ekscls'
         //PULUMI_PROJECT_PATH = 'Pulumi-eks'
         PULUMI_STATE_BUCKET = 's3://my-bucket-2688e2a/pulumi-state/'  // Set your Pulumi state bucket URL

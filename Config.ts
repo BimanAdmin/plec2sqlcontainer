@@ -67,8 +67,8 @@ export const amzec2keyval = {
     name: "sb-zbx-container",
     garmname: "sb-zbx-gec2",
     privateip: "172.20.3.114",
-    garmamid: "ami-0e83be366243f524a", //Canonical, Ubuntu, 22.04 LTS, arm64 jammy image build on 2023-05-16
-    amiid: "ami-06d4b7182ac3480fa"//Amazon Linux 2023 AMI 2023.1.20230912.0 x86_64 HVM kernel-6.1
+    garmamid: "ami-0efcece6bed30fd98", //Canonical, Ubuntu, 22.04 LTS, arm64 jammy image build on 2023-05-16
+    amiid: "ami-093467ec28ae4fe03"//Amazon Linux 2023 AMI 2023.1.20230912.0 x86_64 HVM kernel-6.1
 }
 
 // Define your EKS local variables

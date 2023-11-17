@@ -43,14 +43,14 @@ pipeline {
             steps {
                 script {
 
-                    sh 'pulumi stack init ${PULUMI_STACK}'
-
                     // Check if the stack exists
                     def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
 
                     // Initialize or select the stack
                     if (stackExists) {
                         sh "pulumi stack select ${PULUMI_STACK}"
+                    } else {
+                        sh "pulumi stack init ${PULUMI_STACK}"
                     }
 
                     // Create a script file for Pulumi up command

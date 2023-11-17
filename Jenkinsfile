@@ -47,7 +47,7 @@ pipeline {
                 script {
                     // Check if the stack exists
                     def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
-                        if (!stackExists && PULUMI_STACK != 'plec2sqlcontainer') {
+                        if (!stackExists || PULUMI_STACK != 'plec2sqlcontainer') {
                             sh "pulumi stack init ${PULUMI_STACK}"
                     }
 

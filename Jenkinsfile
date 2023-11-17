@@ -77,7 +77,7 @@ pipeline {
                         // Initialize or select the stack
                         //sh "pulumi stack ${stackExists ? 'select' : 'init'} ${PULUMI_STACK}"
 
-                        sh 'pulumi stack init ${PULUMI_STACK}'
+                        //sh 'pulumi stack init ${PULUMI_STACK}'
                         //sh 'pulumi stack select ${PULUMI_STACK}'
                         sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'
                         sh './pulumi-up.sh'

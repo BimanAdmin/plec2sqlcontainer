@@ -50,7 +50,7 @@ pipeline {
                         if (!stackExists) {
                             sh "pulumi stack init ${PULUMI_STACK}"
                         }
-                            if (stackExists) {
+                        if (stackExists) {
                             sh "pulumi stack select ${PULUMI_STACK}"
                         }
 

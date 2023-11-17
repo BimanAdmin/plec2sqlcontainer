@@ -46,13 +46,13 @@ pipeline {
             steps {
                 script {
                     // Check if the stack exists
-                    //def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
-                    def stackExists = sh(script: "pulumi stack ls --json | jq '.[] | .name' | grep -x ${PULUMI_STACK}", returnStatus: true).toInteger() == 0
+                    def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
                     if (!stackExists) {
                             sh "pulumi stack init ${PULUMI_STACK}"
-                        } else { 
-                            sh "pulumi stack select ${PULUMI_STACK}"
                         }
+                    else { 
+                            sh "pulumi stack select ${PULUMI_STACK}"
+                    }
 
                     sh "pulumi stack select ${PULUMI_STACK}"                    
                     

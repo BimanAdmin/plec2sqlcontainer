@@ -85,7 +85,9 @@ pipeline {
                         sh 'export npm_PATH="/usr/share/npm:$npm_PATH"'
                         sh 'npm install'
 
-                        def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
+                        //def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
+                        // Check if the stack exists by inspecting the configuration file
+                        def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
 
                         // Initialize or select the stack
                         sh "pulumi stack ${stackExists ? 'select' : 'init'} ${PULUMI_STACK}"

@@ -47,18 +47,14 @@ pipeline {
                 script {
                     // Check if the stack exists
                     def stackList = sh(script: 'pulumi stack ls --json', returnStdout: true).trim()
-                    //def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
                     def stackExists = stackList.contains(PULUMI_STACK)
                     if (!stackExists) {
                             sh "pulumi stack init ${PULUMI_STACK}"
                         }
                     else { 
                             sh "pulumi stack select ${PULUMI_STACK}"
-                        }
-
-                    //sh "pulumi stack select ${PULUMI_STACK}"                    
-                    
-                    
+                        }                   
+                      
                 }
             }
         }
@@ -81,14 +77,6 @@ pipeline {
                         sh 'export PATH="/var/lib/jenkins/.pulumi/bin:$PATH"'
                         sh 'export npm_PATH="/usr/share/npm:$npm_PATH"'
                         sh 'npm install'
-
-                        //def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
-                        
-
-                        // Initialize or select the stack
-                        //sh "pulumi stack ${stackExists ? 'select' : 'init'} ${PULUMI_STACK}"
-                        //sh 'pulumi stack init ${PULUMI_STACK}'
-                        //sh 'pulumi stack select ${PULUMI_STACK}'
                         sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'
                         sh './pulumi-up.sh'
                     }

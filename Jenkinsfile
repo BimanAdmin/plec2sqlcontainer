@@ -49,6 +49,9 @@ pipeline {
                     def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
                     if (!stackExists) {
                             sh "pulumi stack init ${PULUMI_STACK}"
+                            else if (stackExists){
+                                sh "pulumi stack select ${PULUMI_STACK}"
+                            }
                         }
                     // else { 
                     //         sh "pulumi stack select ${PULUMI_STACK}"

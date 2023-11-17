@@ -49,7 +49,7 @@ pipeline {
                     def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
                         if (!stackExists) {
                             sh "pulumi stack init ${PULUMI_STACK}"
-                        elif (!stackExists) {
+                        elif (stackExists) {
                             sh "pulumi stack select ${PULUMI_STACK}"
                     }
 

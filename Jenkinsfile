@@ -43,6 +43,8 @@ pipeline {
             steps {
                 script {
 
+                    sh 'pulumi stack init ${PULUMI_STACK}'
+
                     // Check if the stack exists
                     def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
 

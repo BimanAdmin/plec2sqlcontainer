@@ -50,9 +50,12 @@ pipeline {
                     if (stackExists) {
                         sh "pulumi stack select ${PULUMI_STACK}"
                     }
+                    else {
 
-                    // Select the stack
-                    sh "pulumi stack init ${PULUMI_STACK}"
+                        // Select the stack
+                        sh "pulumi stack init ${PULUMI_STACK}"
+                        
+                    }
 
 
                     // Create a script file for Pulumi up command

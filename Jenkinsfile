@@ -57,16 +57,24 @@ pipeline {
                         sh 'export npm_PATH="/usr/share/npm:$npm_PATH"'
                         sh 'npm install'
                         sh 'npm install pulumi && npm install @pulumi/aws'
-                        // Check if the stack exists
-                        def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true, returnStdout: true).trim()
 
-                        if (stackExists.contains("\"name\":\"${PULUMI_STACK}\"")) {
+                        // Capture the JSON output of pulumi stack ls
+                        def pulumiStackListJson = sh(script: 'pulumi stack ls --json', returnStdout: true).trim()
+
+                        // Parse the JSON output
+                        def pulumiStackList = readJSON text: pulumiStackListJson
+
+                        // Check if the stack exists
+                        def stackExists = pulumiStackList.find { it.name == PULUMI_STACK }
+
+                        if (stackExists) {
                         // Stack exists, select it
-                            sh "pulumi stack select ${PULUMI_STACK}"
+                           sh "pulumi stack select ${PULUMI_STACK}"
                         } else {
                         // Stack doesn't exist, initialize it
-                            sh "pulumi stack init ${PULUMI_STACK}"
+                           sh "pulumi stack init ${PULUMI_STACK}"
                         }
+
                         //sh 'pulumi stack init ${PULUMI_STACK}'
                         //sh 'pulumi stack select ${PULUMI_STACK}'
                         sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'

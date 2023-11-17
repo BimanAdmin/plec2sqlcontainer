@@ -42,26 +42,9 @@ pipeline {
         }
 
 
-        // stage('Check or Initialize Pulumi Stack') {
-        //     steps {
-        //         script {
-        //             // Check if the stack exists
-        //             def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
-
-        //             // Initialize or select the stack
-        //             if (stackExists) {
-        //                 sh "pulumi stack select ${PULUMI_STACK}"
-        //             } else {
-        //                 sh "pulumi stack init ${PULUMI_STACK}"
-        //             }
-        //         }
-        //     }
-        // }
-
-        stage('Pulumi Up') {
+        stage('Check or Initialize Pulumi Stack') {
             steps {
                 script {
-
                     // Check if the stack exists
                     def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
 
@@ -71,7 +54,14 @@ pipeline {
                     } else {
                         sh "pulumi stack init ${PULUMI_STACK}"
                     }
+                }
+            }
+        }
 
+        stage('Pulumi Up') {
+            steps {
+                script {
+                    
                     // Create a script file for Pulumi up command
                     writeFile file: 'pulumi-up.sh', text: '''
                         #!/bin/bash

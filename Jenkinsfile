@@ -72,10 +72,10 @@ pipeline {
                         //sh 'npm install pulumi && npm install @pulumi/aws'
 
                         // Check if the stack exists
-                        def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
+                        //def stackExists = sh(script: 'pulumi stack ls --json', returnStatus: true).toInteger() == 0
 
                         // Initialize or select the stack
-                        sh "pulumi stack ${stackExists ? 'select' : 'init'} ${PULUMI_STACK}"
+                        //sh "pulumi stack ${stackExists ? 'select' : 'init'} ${PULUMI_STACK}"
 
                         //sh 'pulumi stack init ${PULUMI_STACK}'
                         //sh 'pulumi stack select ${PULUMI_STACK}'

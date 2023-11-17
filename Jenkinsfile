@@ -49,10 +49,11 @@ pipeline {
                     def stackExists = fileExists(".pulumi/stacks/${PULUMI_STACK}.json")
 
                     // Initialize or select the stack
-                    if (stackExists) {
+                    if (!stackExists) {
+                        sh "pulumi stack init ${PULUMI_STACK}"
                         sh "pulumi stack select ${PULUMI_STACK}"
                     } else {
-                        sh "pulumi stack init ${PULUMI_STACK}"
+                        sh "pulumi stack select ${PULUMI_STACK}"
                     }
                 }
             }
@@ -61,7 +62,7 @@ pipeline {
         stage('Pulumi Up') {
             steps {
                 script {
-                    
+
                     // Create a script file for Pulumi up command
                     writeFile file: 'pulumi-up.sh', text: '''
                         #!/bin/bash

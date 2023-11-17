@@ -68,7 +68,7 @@ pipeline {
                     // Create a script file for Pulumi up command
                     writeFile file: 'pulumi-up.sh', text: '''
                         #!/bin/bash
-                        pulumi destroy --yes
+                        pulumi up --yes
                     '''
                     
                     // Make the script executable
@@ -109,19 +109,19 @@ pipeline {
         //}
     }
 
-    // post {
-    //         failure {
-    //             script {
-    //                 echo 'Destroying EKS cluster due to pipeline failure'
-    //                 // Run Pulumi destroy in case of pipeline failure
-    //                 sh 'pulumi destroy --yes'
-    //             }
-    //         }
+    post {
+            failure {
+                script {
+                    echo 'Destroying EKS cluster due to pipeline failure'
+                    // Run Pulumi destroy in case of pipeline failure
+                    sh 'pulumi destroy --yes'
+                }
+            }
 
-    //         success {
-    //             script {
-    //                 echo 'Pipeline executed successfully!'
-    //             }
-    //         }
-    //     }
+            success {
+                script {
+                    echo 'Pipeline executed successfully!'
+                }
+            }
+        }
 }

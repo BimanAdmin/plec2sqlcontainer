@@ -70,7 +70,7 @@ pipeline {
                     // Create a script file for Pulumi up command
                     writeFile file: 'pulumi-up.sh', text: '''
                         #!/bin/bash
-                        pulumi destroy --yes
+                        pulumi up --yes
                     '''
                     
                     // Make the script executable

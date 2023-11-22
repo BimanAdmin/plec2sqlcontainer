@@ -13,7 +13,7 @@ pipeline {
         GITHUB_REPO_URL = 'https://github.com/BimanAdmin/plec2sqlcontainer.git'
         //CLUSTER_NAME = 'my-vpc-01-ekscls'
         //PULUMI_PROJECT_PATH = 'Pulumi-eks'
-        PULUMI_STATE_BUCKET = 's3://pulumi-jenkins-state/state-bucket/'  // Set your Pulumi state bucket URL AWS_CREDENTIALS_ID
+        PULUMI_STATE_BUCKET = 'pulumi-jenkins-state/state-bucket/'  // Set your Pulumi state bucket URL AWS_CREDENTIALS_ID
         PATH = "/var/lib/jenkins/.pulumi/bin:$PATH" // Installation Path for Pulumi on Jenkins ec2 machine
         npm_PATH= " /usr/share/npm:$npm_PATH"
         //KUBECONFIG_FILE = 'kubeconfig.yaml'

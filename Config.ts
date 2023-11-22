@@ -61,7 +61,7 @@ export const sqlsvrPassword = "W#RY7YJSkT9nwsF&19tSWS";
 //EC2 Variablles values 
 
 export const amzec2keyval = {
-    keypairname: "KC-UAT-US",
+    keypairname: "KC-UAT-US-OHIO",
     instancetype: "t3a.medium",
     garminstancetype: "t4g.small",
     name: "sb-zbx-container",

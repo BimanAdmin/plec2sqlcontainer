@@ -17,6 +17,7 @@ pipeline {
         PATH = "/var/lib/jenkins/.pulumi/bin:$PATH" // Installation Path for Pulumi on Jenkins ec2 machine
         npm_PATH= " /usr/share/npm:$npm_PATH"
         //KUBECONFIG_FILE = 'kubeconfig.yaml'
+        PULUMI_CONFIG_PASSPHRASE = credentials('PULUMI_CONFIG_PASSPHRASE')
 
     }
 
@@ -92,7 +93,8 @@ pipeline {
                         }
                         else { 
                             sh "pulumi stack select ${PULUMI_STACK}"
-                        } 
+                        }
+                        sh 'export PULUMI_CONFIG_PASSPHRASE="$PULUMI_CONFIG_PASSPHRASE"' 
                         sh './pulumi-up.sh'
                     }
                 }

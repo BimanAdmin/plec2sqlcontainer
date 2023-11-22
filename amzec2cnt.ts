@@ -14,6 +14,14 @@ const ebsVolumes = [
     // { deviceName: '/dev/sdj', volumeSize: 100, volumeType: 'gp3', tags: { Name: 'temp' } },
 ];
 
+const myebs = new aws.ebs.Volume("my-ebs", {
+    availabilityZone: "us-west-2a",
+    size: 5,
+    tags: {
+        Name: "HelloWorld",
+    },
+});
+
 const userData = pulumi.interpolate`#!/bin/bash
 # Loop through and format/mount EBS volumes
 ${ebsVolumes.map(volume => `

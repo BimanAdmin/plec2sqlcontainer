@@ -80,7 +80,7 @@ pipeline {
                         sh 'export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'
 
                         // Set Pulumi state storage to AWS S3
-                        sh "pulumi login s3://${PULUMI_STATE_BUCKET}/${PULUMI_STACK} --cloud-url s3://${PULUMI_STATE_BUCKET} --yes"
+                        sh "pulumi login s3://${PULUMI_STATE_BUCKET}/${PULUMI_STACK} --cloud-url s3://${PULUMI_STATE_BUCKET}"
                         sh 'export PATH="/var/lib/jenkins/.pulumi/bin:$PATH"'
                         sh 'export npm_PATH="/usr/share/npm:$npm_PATH"'
                         sh 'npm install'

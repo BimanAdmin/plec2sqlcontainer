@@ -73,7 +73,7 @@ pipeline {
                     sh 'chmod +x pulumi-up.sh'
 
                     // Execute Pulumi up
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${aws-credentials-id}", accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         // Set AWS credentials for Pulumi
                         sh 'export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID'
                         sh 'export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'

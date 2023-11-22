@@ -78,11 +78,9 @@ const instance = new aws.ec2.Instance(varconfig.amzec2keyval.name, {
     userData: userData,
 });
 
-const bucket = new aws.s3.Bucket("knowcross-007-test-bucket", {
-    acl: "private", // Set the access control list for the bucket (options: private, public-read, public-read-write, authenticated-read, log-delivery-write, bucket-owner-read, bucket-owner-full-control)
-});
+
 
 export const publicIp = instance.publicIp;
 export const privateIp = instance.privateIp;
 export const publicHostName = instance.publicDns;
-export const bucketName = bucket.bucket;
+

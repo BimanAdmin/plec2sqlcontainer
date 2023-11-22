@@ -58,14 +58,13 @@ pipeline {
         stage('Pulumi Up') {
             steps {
                 script {
-                    // // Check if resources already exist
-                    // def resourcesExist = sh(script: 'pulumi preview --json', returnStatus: true) == 0
+                    // Check if resources already exist
+                    def resourcesExist = sh(script: 'pulumi preview --json', returnStatus: true) == 0
 
-                    // if (resourcesExist) {
-                    //     echo 'Resources already exist. Skipping Pulumi Up.'
-                    // } else {
-                    //     echo 'New resources or chnages found. Running Pulumi Up.
-                    //}
+                    if (resourcesExist) {
+                        echo 'Resources already exist. Skipping Pulumi Up.'
+                    } else {
+                        echo 'New resources or chnages found. Running Pulumi Up.'
                         withCredentials([
                             [$class: 'AmazonWebServicesCredentialsBinding', 
                              credentialsId: 'AWS_CREDENTIALS_ID', 
@@ -80,7 +79,7 @@ pipeline {
                             sh 'npm install'
                             sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'
                             sh 'export PULUMI_CONFIG_PASSPHRASE="$PULUMI_CONFIG_PASSPHRASE"'
-                            sh 'pulumi up --yes --skip-preview'
+                            sh 'pulumi up --yes'
                         }
                     }
                 }
@@ -117,4 +116,4 @@ pipeline {
                 }
             }
         }
-
+}

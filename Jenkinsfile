@@ -7,12 +7,13 @@ pipeline {
         AWS_REGION = 'us-west-2'
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_CREDENTIALS_ID = credentials('AWS_CREDENTIALS_ID')
         PULUMI_ACCESS_TOKEN = credentials('pulumi-access-token')
         PULUMI_STACK = 'plec2sqlcontainer'
         GITHUB_REPO_URL = 'https://github.com/BimanAdmin/plec2sqlcontainer.git'
         //CLUSTER_NAME = 'my-vpc-01-ekscls'
         //PULUMI_PROJECT_PATH = 'Pulumi-eks'
-        PULUMI_STATE_BUCKET = 's3://pulumi-jenkins-state/state-bucket/'  // Set your Pulumi state bucket URL
+        PULUMI_STATE_BUCKET = 's3://pulumi-jenkins-state/state-bucket/'  // Set your Pulumi state bucket URL AWS_CREDENTIALS_ID
         PATH = "/var/lib/jenkins/.pulumi/bin:$PATH" // Installation Path for Pulumi on Jenkins ec2 machine
         npm_PATH= " /usr/share/npm:$npm_PATH"
         //KUBECONFIG_FILE = 'kubeconfig.yaml'

@@ -1,4 +1,3 @@
-/////////////////Test Jenkins Pipeline////////////
 
 pipeline {
     agent any

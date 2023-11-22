@@ -79,7 +79,7 @@ pipeline {
                             sh 'npm install'
                             sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'
                             sh 'export PULUMI_CONFIG_PASSPHRASE="$PULUMI_CONFIG_PASSPHRASE"'
-                            sh 'pulumi destroy --yes'
+                            sh 'pulumi up --yes --skip-preview'
                         }
                     //}
                 }

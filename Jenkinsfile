@@ -1,5 +1,4 @@
-/////////////////Test Jenkins Pipeline////////////
-
+//////Jenkins Pipeline Code////
 pipeline {
     agent any
 
@@ -7,15 +6,13 @@ pipeline {
         AWS_REGION = 'us-west-2'
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        PULUMI_ACCESS_TOKEN = credentials('pulumi-access-token')
-        PULUMI_STACK = 'plec2sqlcontainer'
+        AWS_CREDENTIALS_ID = credentials('AWS_CREDENTIALS_ID')
+        PULUMI_STACK = 'plec2sqlcontainer-s3'
         GITHUB_REPO_URL = 'https://github.com/BimanAdmin/plec2sqlcontainer.git'
-        //CLUSTER_NAME = 'my-vpc-01-ekscls'
-        //PULUMI_PROJECT_PATH = 'Pulumi-eks'
-        PULUMI_STATE_BUCKET = 's3://my-bucket-2688e2a/pulumi-state/'  // Set your Pulumi state bucket URL
+        PULUMI_STATE_BUCKET = 'pulumi-jenkins-state/state-bucket/'  // Set your Pulumi state bucket URL AWS_CREDENTIALS_ID
         PATH = "/var/lib/jenkins/.pulumi/bin:$PATH" // Installation Path for Pulumi on Jenkins ec2 machine
         npm_PATH= " /usr/share/npm:$npm_PATH"
-        //KUBECONFIG_FILE = 'kubeconfig.yaml'
+        PULUMI_CONFIG_PASSPHRASE = credentials('PULUMI_CONFIG_PASSPHRASE')
 
     }
 
@@ -41,7 +38,6 @@ pipeline {
              }
         }
 
-
         stage('Check or Initialize Pulumi Stack') {
             steps {
                 script {
@@ -66,18 +62,33 @@ pipeline {
                     // Create a script file for Pulumi up command
                     writeFile file: 'pulumi-up.sh', text: '''
                         #!/bin/bash
-                        pulumi up --yes
+                        pulumi destroy --yes
                     '''
                     
                     // Make the script executable
                     sh 'chmod +x pulumi-up.sh'
 
                     // Execute Pulumi up
-                    withCredentials([string(credentialsId: 'pulumi-access-token', variable: 'PULUMI_ACCESS_TOKEN')]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS_CREDENTIALS_ID', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        // Set AWS credentials for Pulumi
+                        sh 'export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID'
+                        sh 'export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'
+
+                        // Set Pulumi state storage to AWS S3
+                        sh "pulumi login s3://${PULUMI_STATE_BUCKET}/${PULUMI_STACK}"
                         sh 'export PATH="/var/lib/jenkins/.pulumi/bin:$PATH"'
                         sh 'export npm_PATH="/usr/share/npm:$npm_PATH"'
                         sh 'npm install'
                         sh 'npm install @pulumi/pulumi && npm install @pulumi/aws'
+                        // def stackList = sh(script: 'pulumi stack ls --json', returnStdout: true).trim()
+                        // def stackExists = stackList.contains(PULUMI_STACK)
+                        // if (!stackExists) {
+                        //     sh "pulumi stack init ${PULUMI_STACK}"
+                        // }
+                        // else { 
+                        //     sh "pulumi stack select ${PULUMI_STACK}"
+                        // }
+                        sh 'export PULUMI_CONFIG_PASSPHRASE="$PULUMI_CONFIG_PASSPHRASE"' 
                         sh './pulumi-up.sh'
                     }
                 }

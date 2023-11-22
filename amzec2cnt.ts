@@ -14,7 +14,7 @@ const ebsVolumes = [
     // { deviceName: '/dev/sdj', volumeSize: 100, volumeType: 'gp3', tags: { Name: 'temp' } },
 ];
 
-const bucket = new aws.s3.Bucket("exampleS3Bucket", {
+const bucket = new aws.s3.Bucket("knowcross-007-test-bucket", {
     acl: "private", // Set the access control list for the bucket (options: private, public-read, public-read-write, authenticated-read, log-delivery-write, bucket-owner-read, bucket-owner-full-control)
 });
 

@@ -58,7 +58,7 @@ pipeline {
         stage('Pulumi Up') {
             steps {
                 script {
-                    Check if resources already exist
+                    //Check if resources already exist
                     def resourcesExist = sh(script: 'pulumi preview --json', returnStatus: true) == 0
 
                     if (resourcesExist) {

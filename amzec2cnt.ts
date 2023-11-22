@@ -7,7 +7,7 @@ import { SecGrup } from "./securityGroup";
 
 // Create EBS volumes
 const ebsVolumes = [
-    { deviceName: '/dev/sdf', volumeSize: 10, volumeType: 'gp3', tags: { Name: 'data' } },
+    { deviceName: '/dev/sdf', volumeSize: 25, volumeType: 'gp3', tags: { Name: 'data' } },
     // { deviceName: '/dev/sdg', volumeSize: 900, volumeType: 'gp3', tags: { Name: 'cmdf' } },
     // { deviceName: '/dev/sdh', volumeSize: 200, volumeType: 'gp3', tags: { Name: 'omdf' } },
     // { deviceName: '/dev/sdi', volumeSize: 150, volumeType: 'gp3', tags: { Name: 'ldf' } },

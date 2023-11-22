@@ -64,7 +64,8 @@ pipeline {
                     // if (resourcesExist) {
                     //     echo 'Resources already exist. Skipping Pulumi Up.'
                     // } else {
-                    //     echo 'New resources or chnages found. Running Pulumi Up.'
+                    //     echo 'New resources or chnages found. Running Pulumi Up.
+                    //}
                         withCredentials([
                             [$class: 'AmazonWebServicesCredentialsBinding', 
                              credentialsId: 'AWS_CREDENTIALS_ID', 
